@@ -15,14 +15,12 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                             sh "git config user.email mik3asg@gmail.com"
                             sh "git config user.name Mik3asg"
-                            sh "cd Python_Flask_App_Jenkins_ArgoCD_EKS/K8sManifest_CD/"
                             sh "cat deployment.yaml"
                             sh "sed -i 's+mik3asg/python-cicd.*+mik3asg/python-cicd:${DOCKERTAG}+g' deployment.yaml"
-                            sh "cd Python_Flask_App_Jenkins_ArgoCD_EKS/K8sManifest_CD/"
                             sh "cat deployment.yaml"
                             sh "git add deployment.yaml"
                             sh "git commit -m 'Updated deployment.yaml by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
-                            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/Python_Flask_App_Jenkins_ArgoCD_EKS.git HEAD:main"
+                            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/Flask_App_Jenkins_GitOps_EKS.git HEAD:main"
                         }
                     }
                 }
